@@ -1,7 +1,8 @@
-import 'package:complete_advanced_course/presentaion/color_manager.dart';
-import 'package:complete_advanced_course/presentaion/fonts_manager.dart';
-import 'package:complete_advanced_course/presentaion/style_manager.dart';
-import 'package:complete_advanced_course/presentaion/values_manager.dart';
+
+import 'package:complete_advanced_course/presentaion/resources/color_manager.dart';
+import 'package:complete_advanced_course/presentaion/resources/fonts_manager.dart';
+import 'package:complete_advanced_course/presentaion/resources/style_manager.dart';
+import 'package:complete_advanced_course/presentaion/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 
 ThemeData getApplicationTheme() {

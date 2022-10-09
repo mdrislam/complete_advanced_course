@@ -1,5 +1,6 @@
-import 'package:complete_advanced_course/presentaion/fonts_manager.dart';
-import 'package:complete_advanced_course/presentaion/values_manager.dart';
+
+import 'package:complete_advanced_course/presentaion/resources/fonts_manager.dart';
+import 'package:complete_advanced_course/presentaion/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 
 // Text Style
