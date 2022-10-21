@@ -1,4 +1,3 @@
-
 import 'package:complete_advanced_course/presentaion/resources/color_manager.dart';
 import 'package:complete_advanced_course/presentaion/resources/fonts_manager.dart';
 import 'package:complete_advanced_course/presentaion/resources/style_manager.dart';
@@ -56,6 +55,10 @@ ThemeData getApplicationTheme() {
             color: Colormanager.darkGrey, fontSize: FontSize.s16),
         subtitle1: getMediumStyle(
           color: Colormanager.lightGrey,
+          fontSize: FontSize.s14,
+        ),
+        subtitle2: getMediumStyle(
+          color: Colormanager.primary,
           fontSize: FontSize.s14,
         ),
         caption: getRegularStyle(color: Colormanager.grey1),

@@ -41,7 +41,7 @@ class _OnboardingViewState extends State<OnboardingView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colormanager.white,
-        elevation: AppSize.s1_5,
+        elevation: AppSize.s0,
         systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: Colormanager.white,
             statusBarBrightness: Brightness.dark,
@@ -70,9 +70,10 @@ class _OnboardingViewState extends State<OnboardingView> {
               alignment: Alignment.topRight,
               child: TextButton(
                   onPressed: () {},
-                  child: const Text(
+                  child: Text(
                     AppStrings.skip,
                     textAlign: TextAlign.end,
+                    style: Theme.of(context).textTheme.subtitle2,
                   )),
             ),
             _getBottomSheetWidgets()
@@ -83,54 +84,57 @@ class _OnboardingViewState extends State<OnboardingView> {
   }
 
   Widget _getBottomSheetWidgets() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        //Left Arrow
-        Padding(
-          padding: const EdgeInsets.all(AppPadding.p14),
-          child: InkWell(
-            onTap: () {
-              //Go To Previous Slider
-              _pageController.animateToPage(_getPrviousIndex(),
-                  duration: const Duration(milliseconds: DurationConst.d300),
-                  curve: Curves.bounceIn);
-            },
-            child: SizedBox(
-              height: AppSize.s20,
-              width: AppSize.s20,
-              child: SvgPicture.asset(ImageAssets.leftArrow),
+    return Container(
+      color: Colormanager.primary,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          //Left Arrow
+          Padding(
+            padding: const EdgeInsets.all(AppPadding.p14),
+            child: InkWell(
+              onTap: () {
+                //Go To Previous Slider
+                _pageController.animateToPage(_getPrviousIndex(),
+                    duration: const Duration(milliseconds: DurationConst.d300),
+                    curve: Curves.bounceIn);
+              },
+              child: SizedBox(
+                height: AppSize.s20,
+                width: AppSize.s20,
+                child: SvgPicture.asset(ImageAssets.leftArrow),
+              ),
             ),
           ),
-        ),
-        //Middle Cicular Indicator
-        Row(
-          children: [
-            for (int index = 0; index < _list.length; index++)
-              Padding(
-                  padding: const EdgeInsets.all(AppPadding.p8),
-                  child: _dotIndicator(index))
-          ],
-        ),
-        //Right Arrow
-        Padding(
-          padding: const EdgeInsets.all(AppPadding.p14),
-          child: InkWell(
-            onTap: () {
-              //Go To Next Slider
+          //Middle Cicular Indicator
+          Row(
+            children: [
+              for (int index = 0; index < _list.length; index++)
+                Padding(
+                    padding: const EdgeInsets.all(AppPadding.p8),
+                    child: _dotIndicator(index))
+            ],
+          ),
+          //Right Arrow
+          Padding(
+            padding: const EdgeInsets.all(AppPadding.p14),
+            child: InkWell(
+              onTap: () {
+                //Go To Next Slider
 
-              _pageController.animateToPage(_getNextIndex(),
-                  duration: const Duration(milliseconds: DurationConst.d300),
-                  curve: Curves.bounceIn);
-            },
-            child: SizedBox(
-              height: AppSize.s20,
-              width: AppSize.s20,
-              child: SvgPicture.asset(ImageAssets.rightArrow),
+                _pageController.animateToPage(_getNextIndex(),
+                    duration: const Duration(milliseconds: DurationConst.d300),
+                    curve: Curves.bounceIn);
+              },
+              child: SizedBox(
+                height: AppSize.s20,
+                width: AppSize.s20,
+                child: SvgPicture.asset(ImageAssets.rightArrow),
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
