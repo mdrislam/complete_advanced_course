@@ -91,7 +91,10 @@ class _OnboardingViewState extends State<OnboardingView> {
           padding: const EdgeInsets.all(AppPadding.p14),
           child: InkWell(
             onTap: () {
-              //Go To Next Slider
+              //Go To Previous Slider
+              _pageController.animateToPage(_getPrviousIndex(),
+                  duration: const Duration(milliseconds: DurationConst.d300),
+                  curve: Curves.bounceIn);
             },
             child: SizedBox(
               height: AppSize.s20,
@@ -115,6 +118,10 @@ class _OnboardingViewState extends State<OnboardingView> {
           child: InkWell(
             onTap: () {
               //Go To Next Slider
+
+              _pageController.animateToPage(_getNextIndex(),
+                  duration: const Duration(milliseconds: DurationConst.d300),
+                  curve: Curves.bounceIn);
             },
             child: SizedBox(
               height: AppSize.s20,
@@ -134,6 +141,23 @@ class _OnboardingViewState extends State<OnboardingView> {
     } else {
       return SvgPicture.asset(ImageAssets.solidCircle);
     }
+  }
+
+  int _getPrviousIndex() {
+    int previousIndex = _currentIndex--; //-1
+    if (previousIndex == -1) {
+      _currentIndex =
+          _list.length - 1; //infinit loop to go to the length of slider list
+    }
+    return _currentIndex;
+  }
+
+  int _getNextIndex() {
+    int previousIndex = _currentIndex++; // +1
+    if (previousIndex >= _list.length) {
+      _currentIndex = 0; //infinit loop to go to the item of slider list
+    }
+    return _currentIndex;
   }
 }
 
