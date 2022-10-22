@@ -63,7 +63,7 @@ class _OnboardingViewState extends State<OnboardingView> {
           }),
       bottomSheet: Container(
         color: Colormanager.white,
-        height: AppSize.s65,
+        height: AppSize.s100,
         child: Column(
           children: [
             Align(
