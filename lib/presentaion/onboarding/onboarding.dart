@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:complete_advanced_course/domain/model.dart';
 import 'package:complete_advanced_course/presentaion/resources/assets_manager.dart';
 import 'package:complete_advanced_course/presentaion/resources/string_manager.dart';
 import 'package:complete_advanced_course/presentaion/resources/values_manager.dart';
@@ -200,15 +201,4 @@ class OnboardingPage extends StatelessWidget {
       ],
     );
   }
-}
-
-class SliderObject {
-  final String title;
-  final String subTitle;
-  final String image;
-  SliderObject({
-    required this.title,
-    required this.subTitle,
-    required this.image,
-  });
 }
