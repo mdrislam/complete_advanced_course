@@ -10,7 +10,8 @@ import 'package:complete_advanced_course/presentaion/resources/string_manager.da
 class OnboardingViewModel extends BaseViewModel
     with OnboardingViewModelInputs, OnboardingViewModelOutputs {
 // Streams Controllers Builder
-  final StreamController _streamController = StreamController<SliderObject>();
+  final StreamController _streamController =
+      StreamController<SliderViewObject>();
 
   late final List<SliderObject> _list;
   int _currentIndex = 0;
@@ -28,22 +29,22 @@ class OnboardingViewModel extends BaseViewModel
   }
 
   @override
-  void goNext() {
+  int goNext() {
     int previousIndex = _currentIndex--; //-1
     if (previousIndex == -1) {
       _currentIndex =
           _list.length - 1; //infinit loop to go to the length of slider list
     }
-    _postDataToView();
+    return _currentIndex;
   }
 
   @override
-  void goPrevious() {
+  int goPrevious() {
     int previousIndex = _currentIndex++; // +1
     if (previousIndex >= _list.length) {
       _currentIndex = 0; //infinit loop to go to the item of slider list
     }
-     _postDataToView();
+    return _currentIndex;
   }
 
   @override
