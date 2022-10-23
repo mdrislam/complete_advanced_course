@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:complete_advanced_course/domain/model.dart';
+import 'package:complete_advanced_course/presentaion/onboarding/onboardingviewmodel.dart';
 import 'package:complete_advanced_course/presentaion/resources/assets_manager.dart';
 import 'package:complete_advanced_course/presentaion/resources/string_manager.dart';
 import 'package:complete_advanced_course/presentaion/resources/values_manager.dart';
@@ -18,27 +19,23 @@ class OnboardingView extends StatefulWidget {
 
 class _OnboardingViewState extends State<OnboardingView> {
   final PageController _pageController = PageController(initialPage: 0);
-  int _currentIndex = 0;
-  final List<SliderObject> _list = [
-    SliderObject(
-        title: AppStrings.onboardingTitle1,
-        subTitle: AppStrings.onBoardingSubTitle1,
-        image: ImageAssets.onBoardingLogo1),
-    SliderObject(
-        title: AppStrings.onboardingTitle2,
-        subTitle: AppStrings.onBoardingSubTitle2,
-        image: ImageAssets.onBoardingLogo2),
-    SliderObject(
-        title: AppStrings.onboardingTitle3,
-        subTitle: AppStrings.onBoardingSubTitle3,
-        image: ImageAssets.onBoardingLogo3),
-    SliderObject(
-        title: AppStrings.onboardingTitle4,
-        subTitle: AppStrings.onBoardingSubTitle4,
-        image: ImageAssets.onBoardingLogo4),
-  ];
+  final OnboardingViewModel _viewModel = OnboardingViewModel();
+  _bind() {
+    _viewModel.start();
+  }
+
+  @override
+  void initState() {
+    _bind();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    return _getContentWidget();
+  }
+
+  Widget _getContentWidget() {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colormanager.white,
@@ -82,6 +79,12 @@ class _OnboardingViewState extends State<OnboardingView> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _viewModel.dispose();
+    super.dispose();
   }
 
   Widget _getBottomSheetWidgets() {
@@ -146,23 +149,6 @@ class _OnboardingViewState extends State<OnboardingView> {
     } else {
       return SvgPicture.asset(ImageAssets.solidCircle);
     }
-  }
-
-  int _getPrviousIndex() {
-    int previousIndex = _currentIndex--; //-1
-    if (previousIndex == -1) {
-      _currentIndex =
-          _list.length - 1; //infinit loop to go to the length of slider list
-    }
-    return _currentIndex;
-  }
-
-  int _getNextIndex() {
-    int previousIndex = _currentIndex++; // +1
-    if (previousIndex >= _list.length) {
-      _currentIndex = 0; //infinit loop to go to the item of slider list
-    }
-    return _currentIndex;
   }
 }
 

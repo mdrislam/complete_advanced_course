@@ -4,46 +4,89 @@ import 'dart:async';
 
 import 'package:complete_advanced_course/domain/model.dart';
 import 'package:complete_advanced_course/presentaion/base/baseviewmodel.dart';
+import 'package:complete_advanced_course/presentaion/resources/assets_manager.dart';
+import 'package:complete_advanced_course/presentaion/resources/string_manager.dart';
 
 class OnboardingViewModel extends BaseViewModel
     with OnboardingViewModelInputs, OnboardingViewModelOutputs {
 // Streams Controllers Builder
-  final StreamController _streamController =
-      StreamController<SliderObject>();
+  final StreamController _streamController = StreamController<SliderObject>();
+
+  late final List<SliderObject> _list;
+  int _currentIndex = 0;
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    _streamController.close();
   }
 
   @override
   void start() {
-    // TODO: implement start
+    _list = _getSliderData();
+    //send To slider data to our view
+    _postDataToView();
   }
 
   @override
   void goNext() {
-    // TODO: implement goNext
+    int previousIndex = _currentIndex--; //-1
+    if (previousIndex == -1) {
+      _currentIndex =
+          _list.length - 1; //infinit loop to go to the length of slider list
+    }
+    _postDataToView();
   }
 
   @override
   void goPrevious() {
-    // TODO: implement goPrevious
+    int previousIndex = _currentIndex++; // +1
+    if (previousIndex >= _list.length) {
+      _currentIndex = 0; //infinit loop to go to the item of slider list
+    }
+     _postDataToView();
   }
 
   @override
   void onPageChange(int index) {
     // TODO: implement onPageChange
+    _currentIndex = index;
+    _postDataToView();
   }
 
   @override
   // TODO: implement inputSliderViewObject
-  Sink get inputSliderViewObject => throw UnimplementedError();
+  Sink get inputSliderViewObject => _streamController.sink;
 
   @override
   // TODO: implement outputSliderViewObject
   Stream<SliderViewObject> get outputSliderViewObject =>
-      throw UnimplementedError();
+      _streamController.stream.map((sliderViewObject) => sliderViewObject);
+
+  List<SliderObject> _getSliderData() => [
+        SliderObject(
+            title: AppStrings.onboardingTitle1,
+            subTitle: AppStrings.onBoardingSubTitle1,
+            image: ImageAssets.onBoardingLogo1),
+        SliderObject(
+            title: AppStrings.onboardingTitle2,
+            subTitle: AppStrings.onBoardingSubTitle2,
+            image: ImageAssets.onBoardingLogo2),
+        SliderObject(
+            title: AppStrings.onboardingTitle3,
+            subTitle: AppStrings.onBoardingSubTitle3,
+            image: ImageAssets.onBoardingLogo3),
+        SliderObject(
+            title: AppStrings.onboardingTitle4,
+            subTitle: AppStrings.onBoardingSubTitle4,
+            image: ImageAssets.onBoardingLogo4),
+      ];
+  //
+  _postDataToView() {
+    inputSliderViewObject.add(SliderViewObject(
+        sliderObject: _list[_currentIndex],
+        numberOfSlider: _list.length,
+        currentIndex: _currentIndex));
+  }
 }
 
 //inputes mean the orders that our view model will receive from our view
